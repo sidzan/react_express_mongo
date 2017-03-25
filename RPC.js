@@ -23,10 +23,6 @@ module.exports.execute = function(link,args,cb){
       error:function(e){
          console.log("errors",e)
         if (cb) {return cb(e,null)}
-       
       }
     })
 }
-
-
-    
