@@ -11,11 +11,10 @@ module.exports.execute = function(link,args,cb){
     $.ajax({
       url:URL+link,
       method:'POST',
-      dataType: "json",
+      //dataType: "json",
       data:args,
       header:headers,
-      contentType: "application/x-www-form-urlencoded; charset=UTF-8",      
-      timeout:3000,
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
       success:function(data){
         console.log("Data",data)
         if (cb){return cb(null,data)}

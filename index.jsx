@@ -2,6 +2,7 @@
 const ReactDOM = require ("react-dom");
 const React = require('react');
 const Routes = require ("./components/index");
+const ReactDOMServer = require('react-dom').server
 require ('./bulma.css')
 
 import { createStore } from 'redux'

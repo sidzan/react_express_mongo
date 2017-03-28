@@ -56,8 +56,24 @@ app.post("/list_quote",(req,res)=>{
 
 app.post("/add_quote",(req,res)=>{
   console.log("this was called",req.body)
-  add_quote(req.body,()=>{
-    console.log("called ")
+  db.collection('quotes').save(req.body,(err)=>{
+      if (err){
+          res.status(500).send(err);
+          return
+      }
+      res.status(200).send(req.body._id);
+  });
+});
+
+app.post("/delete",(req,res)=>{
+  console.log("delete called",req.body.id)
+  db.collection('quotes').remove(
+  {"_id":  req.body.id },(err)=>{
+      if (err){
+          res.status(500).send(err);
+          return
+      }
+      res.status(200).send("Ok");
   });
 });
 

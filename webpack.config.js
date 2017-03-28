@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack')
 const ProvidePlugin = require('webpack/lib/ProvidePlugin'); 
+const ReactStaticPlugin = require('react-static-webpack-plugin');
+
 var nodeModules = path.resolve(path.join(__dirname, 'node_modules'));
 module.exports = {
   entry: './index.jsx',

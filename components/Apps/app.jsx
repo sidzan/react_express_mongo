@@ -5,7 +5,7 @@ const App = React.createClass({
 	getInitialState:function(){
 		return {};
 	},
-	componentDidMount:function(){
+    getData:function(){
 		RPC.execute("list_quote",{},function(err,data){
 			if (err){
 				alert (err);
@@ -13,17 +13,32 @@ const App = React.createClass({
 			}
 			this.setState({data:data});
 		}.bind(this));
+    },
+	componentDidMount:function(){
+        this.getData();
 	},
+    componentWillReceiveProps:function(nextProps){
+        this.getData()
+    },
 	render:function(){
 		const data = this.state.data;
 		if (!data) {
 			return <div> Loading </div>;
 		}
 		return <div className="container">
-			{data.map((d,i)=>{return <div key={d._id}>{i+1}. {d.name} > {d.quote}</div>;})}
+			{data.map((d,i)=>{return <div key={d._id}>{i+1}. {d.name} > {d.quote} <button onClick={
+                ()=>{
+                    RPC.execute("delete",{"id":"58c76f6a93a58f55c5d572d6"},function(err,data){//WIP
+                        if (err){
+                            alert (err);
+                            return;
+                        }
+                    }.bind(this));
+                }
+                }> X </button></div>;})}
 			<form>
-			<input type="text" placeholder="name" name="name" onChange={(e)=>{this.setState({name:e.target.value})}}/>
-			<input type="text" placeholder="quote" name="quote"  onChange={(e)=>{this.setState({quote:e.target.value})}}/>
+			<input type="text" placeholder="name" name="name" value={this.state.name||""} onChange={(e)=>{this.setState({name:e.target.value})}}/>
+			<input type="text" placeholder="quote" name="quote" value={this.state.quote||""} onChange={(e)=>{this.setState({quote:e.target.value})}}/>
 			<button onClick={this.submit} type="submit">Submit</button>
 			</form>
 		</div>;
@@ -46,7 +61,11 @@ const App = React.createClass({
 				alert (err);
 				return;
 			}
-			console.log(data);
+
+			console.log(data,"was called");
+            this.setState({name:null,quote:null},()=>{
+                this.getData()
+            })
 		}.bind(this));
 	}
 });
