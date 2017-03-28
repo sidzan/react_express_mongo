@@ -19,7 +19,7 @@ const App = React.createClass({
 		if (!data) {
 			return <div> Loading </div>;
 		}
-		return <div>
+		return <div className="container">
 			{data.map((d,i)=>{return <div key={d._id}>{i+1}. {d.name} > {d.quote}</div>;})}
 			<form>
 			<input type="text" placeholder="name" name="name" onChange={(e)=>{this.setState({name:e.target.value})}}/>

@@ -7,7 +7,6 @@ const Index = React.createClass({
     render:function(){
         return <div>
             <Nav/>
-            <User/>
         </div>
     },
 })

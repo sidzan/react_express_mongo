@@ -23,7 +23,6 @@ const User = React.createClass({
 	},
 	render:function(){
 		return <div className="container">
-
 		{(()=>{
 			console.log(this.state.data)
 			const data = this.state.data;
@@ -83,7 +82,7 @@ const User = React.createClass({
 		<input type="text" className="input" placeholder="username" onChange={(e)=>{this.setState({username:e.target.value})}} value={this.state.username||""}/>
 						</p>
 					</div>
-					<a className="button is-primary" type="submit" onClick={this.submit}>Submit</a>
+					<a className="button is-primary is-loading" type="submit" onClick={this.submit}>Submit</a>
 				</form>			
 			</div>
 		</div>
