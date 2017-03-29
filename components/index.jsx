@@ -5,7 +5,7 @@ const Switch            = require('react-router-dom').Switch;
 const App               = require('./Apps/app')
 const User              = require('./Apps/user')
 const Nav               = require('./Apps/navigation')
-const Product           = require('./Apps/product')
+const Quote           = require('./Apps/quotes')
 
 const Routes = React.createClass({
     render:function(){
@@ -13,7 +13,7 @@ const Routes = React.createClass({
             <Nav> 
                 <Switch>
                     <Route path="/user" component={User}/>
-                    <Route path="/quotes" component={App}/>
+                    <Route path="/quotes" component={Quote}/>
                 </Switch>
             </Nav> 
         </Router>

@@ -26,9 +26,9 @@ const App = React.createClass({
 			return <div> Loading </div>;
 		}
 		return <div className="container">
-			{data.map((d,i)=>{return <div key={d._id}>{i+1}. {d.name} > {d.quote} <button onClick={
+			{data.map((d,i)=>{return <div key={d._id}>{i+1}. {d.name} > {d.quote} / {d._id}<button onClick={
                 ()=>{
-                    RPC.execute("delete",{"id":"58c76f6a93a58f55c5d572d6"},function(err,data){//WIP
+                    RPC.execute("delete",{name:"May the force be with you my child"},function(err,data){//WIP
                         if (err){
                             alert (err);
                             return;

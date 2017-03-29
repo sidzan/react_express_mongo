@@ -12,6 +12,11 @@ firebase.initializeApp(config);
 // TO ADD new User
 
 module.exports.firebase = firebase.database();
+
+module.exports.write=function(id,model,vals,cb){
+  firebase.database().ref(model+'/'+id).set(vals).then(cb);
+}
+
 module.exports.writeUserData = function (userId, name, email, imageUrl,cb) {
   firebase.database().ref('users/' + userId).set({
     username: name,

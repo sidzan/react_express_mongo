@@ -40,7 +40,6 @@ app.get('/', (req, res) => {
 app.post('/quotes', (req, res) => {
   db.collection('quotes').save(req.body, (err, result) => {
     if (err) return console.log(err)
-    console.log('saved to database')
     res.redirect('/')
   })
 })
@@ -65,10 +64,10 @@ app.post("/add_quote",(req,res)=>{
   });
 });
 
-app.post("/delete",(req,res)=>{
-  console.log("delete called",req.body.id)
-  db.collection('quotes').remove(
-  {"_id":  req.body.id },(err)=>{
+app.delete("/delete",(req,res)=>{
+  console.log("delete called",req.body.name)
+  db.collection('quotes').findOneAndDelete({name:req.body.name},(err)=>{
+      console.log("Delete was called")
       if (err){
           res.status(500).send(err);
           return
@@ -77,9 +76,3 @@ app.post("/delete",(req,res)=>{
   });
 });
 
-function add_quote(data,cb){
-  db.collection('quotes').save(data, (err, result) => {
-    cb()
-    if (err) return console.log(err)
-  })
-}

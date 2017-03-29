@@ -21594,7 +21594,7 @@ var Switch = __webpack_require__(40).Switch;
 var App = __webpack_require__(113);
 var User = __webpack_require__(116);
 var Nav = __webpack_require__(114);
-var Product = __webpack_require__(115);
+var Quote = __webpack_require__(283);
 
 var Routes = React.createClass({
     displayName: 'Routes',
@@ -21610,7 +21610,7 @@ var Routes = React.createClass({
                     Switch,
                     null,
                     React.createElement(Route, { path: '/user', component: User }),
-                    React.createElement(Route, { path: '/quotes', component: App })
+                    React.createElement(Route, { path: '/quotes', component: Quote })
                 )
             )
         );
@@ -21829,11 +21829,12 @@ var App = React.createClass({
 					d.name,
 					" > ",
 					d.quote,
-					" ",
+					" / ",
+					d._id,
 					React.createElement(
 						"button",
 						{ onClick: function onClick() {
-								RPC.execute("delete", { "id": "58c76f6a93a58f55c5d572d6" }, function (err, data) {
+								RPC.execute("delete", { name: "May the force be with you my child" }, function (err, data) {
 									//WIP
 									if (err) {
 										alert(err);
@@ -22019,28 +22020,7 @@ var Nav = React.createClass({
 module.exports = Nav;
 
 /***/ }),
-/* 115 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var React = __webpack_require__(5);
-
-var Product = React.createClass({
-    displayName: 'Product',
-
-    render: function render() {
-        return React.createElement(
-            'div',
-            null,
-            'product'
-        );
-    }
-});
-module.exports = Product;
-
-/***/ }),
+/* 115 */,
 /* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22275,6 +22255,11 @@ firebase.initializeApp(config);
 // TO ADD new User
 
 module.exports.firebase = firebase.database();
+
+module.exports.write = function (id, model, vals, cb) {
+  firebase.database().ref(model + '/' + id).set(vals).then(cb);
+};
+
 module.exports.writeUserData = function (userId, name, email, imageUrl, cb) {
   firebase.database().ref('users/' + userId).set({
     username: name,
@@ -41218,6 +41203,192 @@ ReactDOM.render(React.createElement(
   { store: store },
   React.createElement(Routes, null)
 ), document.getElementById("content"));
+
+/***/ }),
+/* 283 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*eslint-env node */
+var React = __webpack_require__(5);
+var fire = __webpack_require__(117);
+var Quote = React.createClass({
+	displayName: "Quote",
+
+	getInitialState: function getInitialState() {
+		return { model: 'quotes' };
+	},
+	fetchData: function fetchData() {
+		var _this = this;
+
+		var fetchData = fire.fetchData(function (cb) {
+			var quote = fire.firebase.ref('quotes');
+			quote.on('value', function (d) {
+				return cb(d.val());
+			});
+		});
+		fetchData(function (data) {
+			_this.setState({ data: data });
+		});
+	},
+	componentDidMount: function componentDidMount() {
+		this.fetchData();
+	},
+	render: function render() {
+		var _this2 = this;
+
+		return React.createElement(
+			"div",
+			{ className: "container" },
+			function () {
+				console.log(_this2.state.data);
+				var data = _this2.state.data;
+				return data ? React.createElement(
+					"div",
+					null,
+					React.createElement(
+						"h2",
+						{ className: "title" },
+						" Quotes "
+					),
+					React.createElement(
+						"table",
+						{ className: "table" },
+						React.createElement(
+							"tbody",
+							null,
+							React.createElement(
+								"tr",
+								null,
+								React.createElement(
+									"th",
+									null,
+									"#"
+								),
+								React.createElement(
+									"th",
+									null,
+									"User"
+								),
+								React.createElement(
+									"th",
+									null,
+									"Quote"
+								)
+							),
+							data.map(function (k, v) {
+								return React.createElement(
+									"tr",
+									{ key: v },
+									React.createElement(
+										"td",
+										null,
+										v
+									),
+									React.createElement(
+										"td",
+										null,
+										k.user,
+										" "
+									),
+									React.createElement(
+										"td",
+										null,
+										k.quote
+									)
+								);
+							})
+						)
+					)
+				) : null;
+			}(),
+			React.createElement("hr", null),
+			React.createElement(
+				"h2",
+				{ className: "title" },
+				"Add Quote"
+			),
+			function () {
+				return _this2.state.notification ? React.createElement(
+					"div",
+					{ className: "notification" },
+					React.createElement(
+						"div",
+						{ className: "notification is-info" },
+						React.createElement("button", { className: "delete", onClick: function onClick() {
+								_this2.setState({ notification: null });
+							} }),
+						_this2.state.notification
+					)
+				) : null;
+			}(),
+			React.createElement(
+				"div",
+				{ className: "columns" },
+				React.createElement(
+					"div",
+					{ className: "column is-one-quarter" },
+					React.createElement(
+						"form",
+						{ onSubmit: this.submit },
+						React.createElement(
+							"div",
+							{ className: "field" },
+							React.createElement(
+								"label",
+								{ className: "label" },
+								"  "
+							),
+							React.createElement(
+								"p",
+								{ className: "control" },
+								React.createElement("input", { className: "input", type: "text", placeholder: "user", onChange: function onChange(e) {
+										_this2.setState({ user: e.target.value });
+									}, value: this.state.user || "" })
+							)
+						),
+						React.createElement(
+							"div",
+							{ className: "field" },
+							React.createElement(
+								"label",
+								{ className: "label" },
+								"Quote"
+							),
+							React.createElement(
+								"p",
+								{ className: "control" },
+								React.createElement("input", { type: "text", className: "input", placeholder: "quote", onChange: function onChange(e) {
+										_this2.setState({ quote: e.target.value });
+									}, value: this.state.quote || "" })
+							)
+						),
+						React.createElement(
+							"a",
+							{ className: "button is-primary", type: "submit", onClick: this.submit },
+							"Submit"
+						)
+					)
+				)
+			)
+		);
+	},
+	submit: function submit(e) {
+		var _this3 = this;
+
+		e.preventDefault();
+		var data = this.state;
+		if (!data.user || !data.quote) {
+			alert("You missed something");return;
+		}
+		fire.write(this.state.data ? this.state.data.length : 1, 'quotes', { user: data.user, quote: data.quote }, function () {
+			_this3.setState({ user: null, quote: null, notification: 'Data addedSuccesffully' });_this3.fetchData;
+		});
+	}
+});
+module.exports = Quote;
 
 /***/ })
 /******/ ]);

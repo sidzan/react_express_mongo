@@ -16,7 +16,7 @@ const store=createStoreWithMiddleware(reducer);
 
 ReactDOM.render(
   <Provider store={store}>
-  <Routes/>
+    <Routes/>
   </Provider>,
   document.getElementById("content")
 );
