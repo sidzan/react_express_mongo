@@ -9,12 +9,20 @@ var config = {
 };
 firebase.initializeApp(config);
 
-// TO ADD new User
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
 
 module.exports.firebase = firebase.database();
 
-module.exports.write=function(id,model,vals,cb){
-  firebase.database().ref(model+'/'+id).set(vals).then(cb);
+module.exports.write=function(model,vals,cb){
+  firebase.database().ref(model).push().set(vals).then(cb);
 }
 
 module.exports.writeUserData = function (userId, name, email, imageUrl,cb) {

@@ -12,6 +12,7 @@ const Routes = React.createClass({
         return <Router>
             <Nav> 
                 <Switch>
+                    <Route exact path="/" component={User}/>
                     <Route path="/user" component={User}/>
                     <Route path="/quotes" component={Quote}/>
                 </Switch>

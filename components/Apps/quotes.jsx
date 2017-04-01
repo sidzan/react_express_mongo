@@ -9,7 +9,7 @@ const Quote = React.createClass({
 		const fetchData = fire.fetchData(
 			(cb)=>{
 				var quote = fire.firebase.ref('quotes');
-				quote.on('value',function(d){
+				quote.once('value',function(d){
 					return cb(d.val());
 				});
 			}
@@ -87,7 +87,7 @@ const Quote = React.createClass({
 		if (!data.user || !data.quote){
 			alert("You missed something"); return;
 		}
-        fire.write(this.state.data?this.state.data.length:1,'quotes',{user:data.user,quote:data.quote},()=>{
+        fire.write('quotes',{user:data.user,quote:data.quote},()=>{
 			this.setState({user:null,quote:null,notification:'Data addedSuccesffully'});this.fetchData});
 	},
 });

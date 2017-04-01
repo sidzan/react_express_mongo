@@ -27,28 +27,58 @@ const User = React.createClass({
 			console.log(this.state.data)
 			const data = this.state.data;
 			return (data)? <div>
-		<h2 className="title"> User data </h2>	
-		<table className="table">
-		<tbody>
-			<tr>
-				<th>#</th>
-				<th>Email</th>
-				<th>Profile Picture Location</th>
-				<th>Username</th>
-			</tr>
-			{data.map((k,v)=>{
-				return <tr key={v}> 
-				<td>{v+1}</td>
-				<td>{k.email} </td>
-				<td>{k.profile_picture}</td>
-				<td>{k.username}</td>
-			</tr>
-			})}
-			</tbody>
-		</table>
-		</div>
+                <h2 className="title"> User data </h2>	
+                <table className="table">
+                <tbody>
+                    <tr>
+                        <th>#</th>
+                        <th>Email</th>
+                        <th>Profile Picture Location</th>
+                        <th>Username</th>
+                    </tr>
+                    {data.map((k,v)=>{
+                        return <tr key={v}> 
+                        <td>{v+1}</td>
+                        <td>{k.email} </td>
+                        <td>{k.profile_picture}</td>
+                        <td>{k.username}</td>
+                    </tr>
+                    })}
+                    </tbody>
+                </table>
+            </div>
 		:
-		null;
+            <div>
+                <h2 className="title"> User data </h2>	
+                <table className="table">
+                <tbody>
+                    <tr>
+                        <th>#</th>
+                        <th>Email</th>
+                        <th>Profile Picture Location</th>
+                        <th>Username</th>
+                    </tr>
+                    <tr style={{height:'41',background:'lightgrey'}}>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr style={{height:'41',background:'lightgrey'}}>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr style={{height:'41',background:'lightgrey'}}>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 		})()}
 		
 		<hr/>
@@ -82,7 +112,7 @@ const User = React.createClass({
 		<input type="text" className="input" placeholder="username" onChange={(e)=>{this.setState({username:e.target.value})}} value={this.state.username||""}/>
 						</p>
 					</div>
-					<a className="button is-primary is-loading" type="submit" onClick={this.submit}>Submit</a>
+					<a className="button is-primary" type="submit" onClick={this.submit}>Submit</a>
 				</form>			
 			</div>
 		</div>
@@ -96,7 +126,7 @@ const User = React.createClass({
 			alert("You missed something"); return;
 		}
 		console.log("calling write")
-        fire.writeUserData(this.state.data?this.state.data.length:1,data.username,data.email,data.profile_picture,()=>{
+        fire.writeUserData(data.username,data.email,data.profile_picture,()=>{
 			console.log("callback event")
 			this.setState({email:null,profile_picture:null,username:null,notification:'Data addedSuccesffully'});this.fetchData});
 

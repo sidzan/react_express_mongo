@@ -7,7 +7,7 @@ const Nav = React.createClass({
         <nav className="nav">
           <div className="nav-left">
             <a className="nav-item">
-              <img src="/static/beer.png" alt="Beer logo"/>
+              <img src="./beer.png" alt="Beer logo"/>
             </a>
           </div>
 
