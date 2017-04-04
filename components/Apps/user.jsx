@@ -27,7 +27,7 @@ const User = React.createClass({
 			console.log(this.state.data)
 			const data = this.state.data;
 			return (data)? <div>
-                <h2 className="title"> User data </h2>	
+                <h2 className="title"> User data: </h2>	
                 <table className="table">
                 <tbody>
                     <tr>
@@ -58,19 +58,19 @@ const User = React.createClass({
                         <th>Profile Picture Location</th>
                         <th>Username</th>
                     </tr>
-                    <tr style={{height:'41',background:'lightgrey'}}>
+                    <tr style={{height:41,background:'lightgrey'}}>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                     </tr>
-                    <tr style={{height:'41',background:'lightgrey'}}>
+                    <tr style={{height:41,background:'lightgrey'}}>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
                     </tr>
-                    <tr style={{height:'41',background:'lightgrey'}}>
+                    <tr style={{height:41,background:'lightgrey'}}>
                         <td></td>
                         <td></td>
                         <td></td>
