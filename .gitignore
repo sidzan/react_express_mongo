@@ -1,6 +1,8 @@
 #bundle.js
 bundle.js
 static/bundle.js
+
+__test__/
 # Logs
 logs
 *.log
