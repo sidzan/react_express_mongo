@@ -41,14 +41,16 @@ module.exports = {
       { test: /\.js$/, loader: ['babel-loader'], exclude: /node_modules/ },
       { test: /\.jsx$/, loader: ['babel-loader'], exclude: /node_modules/ },
      // { test: /jquery\.js$/, loader: 'expose', query: {jQuery: true,$: true}},
-      { test: /\.css$/, loader: "style-loader!css-loader" },
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
       { test: /\.png$/, loader: "url-loader?limit=100000" },
       { test: /\.jpg$/, loader: "file-loader" },
       { test: /bootstrap\/dist\/js\/umd\//, use: 'imports-loader?jQuery=jquery'},
       { test: /\.scss$/, use: ['raw-loader', 'sass-loader']},
-      { test: /\.(css|scss)$/,include: [path.join(nodeModules, 'bootstrap'),],loaders: ["style", "css", "sass"]},      
+      {
+            test: /\.css$/,
+            use: 'css-loader'
+        }
 
     ]
   },
