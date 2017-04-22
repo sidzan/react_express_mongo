@@ -1,6 +1,6 @@
-import React from 'react'
-import renderer from 'react-test-renderer'
-import App from '../Apps/app'
+const React = require ('react')
+const renderer = require('react-test-renderer')
+const App = require ('../Apps/app')
 
 test('This contains List of datas including an input box',()=>{
     const component = renderer.create(
